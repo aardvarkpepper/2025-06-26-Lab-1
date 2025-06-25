@@ -101,6 +101,13 @@ const ShoppingCart = class {
       fragment.appendChild(listItem);
     }
     elementHTML.appendChild(fragment);
+    this.displayCartTotal(totalPriceSpan);
+  }
+  // Iterating through the array is not strictly necessary.  Could put in something like a static variable, keep track of additions and subtractions.  Or put in summing in displayItemsToScreen.  Eh.
+  // This is absolutely not too long of a line of code at all, it's easy to understand and maintain really!  wink wink
+  displayCartTotal(htmlElement) {
+    let initialValue = 0;
+    htmlElement.textContent = `${Number(this.items.reduce((accumulator, currentElement) => accumulator + (currentElement.quantity * currentElement.product.price),initialValue,)).toFixed(2)}`
   }
 }
 
