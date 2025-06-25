@@ -23,7 +23,35 @@ const ShoppingCart = class {
   constructor(lastId = 0) {
     this.items = [];
   }
+  isNameEmpty(product) {
+    if (product.name === "") {
+      return true;
+    }
+    return false;
+  }
+  isPriceNegative(product) {
+    if (product.price < 0) {
+      return true;
+    }
+  }
   addProduct(product) {
+    let errorString = "";
+    let errorDetected = false;
+    if (this.isNameEmpty(product)) {
+      errorDetected = true;
+      errorString += "Product name cannot be empty string."
+    }
+    if (this.isPriceNegative(product)) {
+      errorDetected = true;
+      if (errorString) {
+        errorString += " ";
+      }
+      errorString += "Product price cannot be negative."
+    }
+    if (errorDetected) {
+      alert(errorString);
+      return;
+    }
     let productFound = this.items.find((element) => element.product.name === product.name);
     if (!productFound) {
       this.items.push({product: product, quantity: 1});
@@ -46,7 +74,7 @@ const ShoppingCart = class {
     console.log(`this.items${JSON.stringify(this.items)}`);
     for (let i = 0; i < this.items.length; i++) {
       const listItem = document.createElement('li');
-      listItem.textContent = `${this.items[i].product.name}, $${this.items[i].product.price}`;
+      listItem.textContent = `${this.items[i].product.name}, $${Number(this.items[i].product.price).toFixed(2)}`;
       listItem.setAttribute("name", `${this.items[i].product}`); // naughty HTML injection enabled, I suppose.
       const removeItemButton = document.createElement('button');
       removeItemButton.classList.add('button-remove-product'); // Correctly, I think encapsulation should pass in arguments from outside, or references should be internal.  I could be wrong on that.  Anyways, as it is, I have two choices I'm thinking of.  One is to do what is here, using ShoppingCart as a data abstraction that's called by other things, and that works with other things, though encapsulation isn't clean - if I understand encapsulation.  Another is to make the whole thing ShoppingCart methods, create a new shoppingCart, initialize shoppingCart.displayOrderForm() or similar.  Anyways.
