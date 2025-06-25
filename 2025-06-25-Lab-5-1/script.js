@@ -33,6 +33,19 @@ const ShoppingCart = class {
     if (product.price < 0) {
       return true;
     }
+    return false;
+  }
+  isPriceDifferent(product) {
+    const existingProduct = this.items.find((element) => element.product.name === product.name);
+    console.log(existingProduct);
+    if (!existingProduct) {
+      return false;
+    }
+    if (existingProduct.product.price != product.price) {
+      console.log(`iPD, ${existingProduct.product.price}, ${product.price}`);
+      return true;
+    }
+    return false;
   }
   addProduct(product) {
     let errorString = "";
@@ -47,6 +60,13 @@ const ShoppingCart = class {
         errorString += " ";
       }
       errorString += "Product price cannot be negative."
+    }
+    if (this.isPriceDifferent(product)) {
+      errorDetected = true;
+      if (errorString) {
+        errorString += " ";
+      }
+      errorString += "Product has same name as existing product but different price.  Product prices must be same for items with same name."
     }
     if (errorDetected) {
       alert(errorString);
@@ -74,7 +94,7 @@ const ShoppingCart = class {
     console.log(`this.items${JSON.stringify(this.items)}`);
     for (let i = 0; i < this.items.length; i++) {
       const listItem = document.createElement('li');
-      listItem.textContent = `${this.items[i].product.name}, $${Number(this.items[i].product.price).toFixed(2)}`;
+      listItem.textContent = `${this.items[i].product.name}, $${Number(this.items[i].product.price).toFixed(2)}, quantity: ${this.items[i].quantity}`;
       listItem.setAttribute("name", `${this.items[i].product}`); // naughty HTML injection enabled, I suppose.
       const removeItemButton = document.createElement('button');
       removeItemButton.classList.add('button-remove-product'); // Correctly, I think encapsulation should pass in arguments from outside, or references should be internal.  I could be wrong on that.  Anyways, as it is, I have two choices I'm thinking of.  One is to do what is here, using ShoppingCart as a data abstraction that's called by other things, and that works with other things, though encapsulation isn't clean - if I understand encapsulation.  Another is to make the whole thing ShoppingCart methods, create a new shoppingCart, initialize shoppingCart.displayOrderForm() or similar.  Anyways.
