@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Dynamic Shopping Cart</title>
+</head>
+<body>
+  <h1>Dynamic Shopping Cart</h1>
+  <div id="product-container">
+    <input type="text" id="product-name" placeholder="Product Name">
+    <input type="number" id="product-price" placeholder="Product Price">
+    <button id="add-product">Add Product</button>
+  </div>
+  <ul id="cart"></ul>
+  <h3>Total: $<span id="total-price">0</span></h3>
+  <div display="none" class="clone">
+    <li class="li-product">
+      <button class="button-remove-product">
+      </button>
+    </li>
+  </div>
+ 
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!--
+Add Products:
+
+Test adding products with different names and prices.
+Ensure each product appears in the list with the correct price.
+Remove Products:
+
+Test removing products from the cart.
+Verify that the total price updates accurately after removing items.
+Edge Cases:
+
+Attempt to add products with empty names or invalid prices and ensure the application handles these cases gracefully.
+Enhance the App (Optional):
+
+Allow users to update the quantity of products in the cart and recalculate the total price.
+-->
