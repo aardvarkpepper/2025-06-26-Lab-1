@@ -1,3 +1,5 @@
+![Me Using Object-Oriented Programming](./9yhcpc.jpg)
+
 ## Reflection Questions
 
 1.  How did you dynamically create and append new elements to the DOM?
@@ -21,8 +23,6 @@ The item removed didn't just have to be removed from the HTML list, it had to be
 I ended up setting attribute on name of the li element, which was based on user input so potentially could lead to some sort of HTML injection attack.  I also ran into some small issues after restructuring the data making old references not work. Could have set ID based on static variable in ShoppingCart class, but I seem to remember I wasn't supposed to use that for some reason - possibly that's just an issue when assigning array indices as unique IDs when most of the database isn't entirely rewritten when an item is added or removed.
 
 There were a lot of ways to address the issue, though all using variations on passing information from an HTML element to identify a specific item in the Javascript data array.  Used set attribute as I hadn't done it before.
-
-![Me Using Object-Oriented Programming](./9yhcpc.jpg)
 
 ## Resources
 
