@@ -80,12 +80,14 @@ const ShoppingCart = class {
     }
   }
   removeProductByName(productName) {
+    console.log(`rPBN with ${productName}`);
     let productIndex = this.items.findIndex((element) => element.product.name === productName); // -1 if not found, but this should always be found.
     if (this.items[productIndex].quantity > 1) {
       this.items[productIndex].quantity--;
     } else {
       this.items.splice(productIndex, 1);
     }
+    this.displayItemsToScreen(cart);
   }
   displayItemsToScreen(elementHTML, filterFunction = null) {
     console.log("displayItemsToScreen");
@@ -94,10 +96,15 @@ const ShoppingCart = class {
     console.log(`this.items${JSON.stringify(this.items)}`);
     for (let i = 0; i < this.items.length; i++) {
       const listItem = document.createElement('li');
-      listItem.textContent = `${this.items[i].product.name}, $${Number(this.items[i].product.price).toFixed(2)}, quantity: ${this.items[i].quantity}`;
-      listItem.setAttribute("name", `${this.items[i].product}`); // naughty HTML injection enabled, I suppose.
+      listItem.classList.add("cart-item");
+      const listSpan = document.createElement('span');
+      listSpan.textContent = `${this.items[i].product.name}, $${Number(this.items[i].product.price).toFixed(2)}, quantity: ${this.items[i].quantity}`;
+      listItem.appendChild(listSpan);
+      listItem.setAttribute("name", `${this.items[i].product.name}`); // naughty HTML injection enabled, I suppose.  Could have used textContent, I think, but what fun would that be?
       const removeItemButton = document.createElement('button');
+      removeItemButton.textContent = ("Remove an item")
       removeItemButton.classList.add('button-remove-product'); // Correctly, I think encapsulation should pass in arguments from outside, or references should be internal.  I could be wrong on that.  Anyways, as it is, I have two choices I'm thinking of.  One is to do what is here, using ShoppingCart as a data abstraction that's called by other things, and that works with other things, though encapsulation isn't clean - if I understand encapsulation.  Another is to make the whole thing ShoppingCart methods, create a new shoppingCart, initialize shoppingCart.displayOrderForm() or similar.  Anyways.
+      listItem.appendChild(removeItemButton);
       fragment.appendChild(listItem);
     }
     elementHTML.appendChild(fragment);
@@ -128,8 +135,12 @@ addProductButton.addEventListener('click', (event) => {
 cart.addEventListener('click', (event) => {
   if (event.target.classList.contains('button-remove-product')) {
     const productLi = event.target.closest('li');
-    shoppingCart.removeProductByName(productLi.name);
-    cart.removeChild(productLi);
+    //console.log(`cart.aEL attempting ${productLi.getAttribute('name')}`)
+    //console.log(`cart.aEL attempting ${productLi.attributes}`)
+    // for (const element of productLi.attributes) {
+    //   console.log(`Attribute ${element.name.value}`);
+    // }
+    shoppingCart.removeProductByName(productLi.getAttribute("name"));
   }
 })
  

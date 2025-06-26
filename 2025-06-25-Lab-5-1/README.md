@@ -9,3 +9,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
 https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
 https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes
